@@ -98,8 +98,7 @@ int main() {
     // in any other case, the return value will not be nullptr
     if (const double *value = thirdTaskFuture.getReturnValue()) {
         out << "Task 3 returned " << *value << std::endl;
-    } else
-        assert(false);
+    } else assert(false);
 
     // a future to a void function can also be obtained
     TypedFutureTaskResult<void> fourthTaskFuture = queue.addTask([]() {
@@ -125,13 +124,13 @@ int main() {
     // tasks can be executed manually, exactly as-is (synchronously), using the () operator
     task5();
 
-    // the FutureTaskResult<void> can be converted to a TaskResult, a generic type which preserves Task status
-    // information, without requiring the signature of the Task
+    // a FutureTaskResult of any template parameters can be converted to a FutureTaskResult, a generic type which 
+    // can be used to access all of the same data, but without the type information
     FutureTaskResult genericFifthTaskFuture = fifthTaskFuture;
 
     // the return value can be obtained through a void pointer
     // if the Task is a void function, the return value will be a dummy value to
-    // stay consistent with the rest of the api. The dummy value is unspecified, and of an unspecified type
+    // stay consistent with the rest of the api. The dummy value itself is unspecified, and of an unspecified type
     if (const void *value = genericFifthTaskFuture.getReturnValue()) {
         out << "Task 5 finished successfully" << std::endl;
     }
@@ -142,7 +141,7 @@ int main() {
 
     if (const TaskCancellation *cancellation = sixthTaskFuture.getResult().getCancellation()) {
         out << "Task 6 was cancelled and did not execute" << std::endl;
-    }
+    } else assert(false);
 
     // close queue -- lets workers finish once all tasks previously added are finished
     // any additional tasks added will be cancelled
