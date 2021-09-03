@@ -124,7 +124,7 @@ int main() {
     // tasks can be executed manually, exactly as-is (synchronously), using the () operator
     task5();
 
-    // a FutureTaskResult of any template parameters can be converted to a FutureTaskResult, a generic type which 
+    // a TypedFutureTaskResult of any template parameters can be converted to a FutureTaskResult, a generic type which 
     // can be used to access all of the same data, but without the type information
     FutureTaskResult genericFifthTaskFuture = fifthTaskFuture;
 
