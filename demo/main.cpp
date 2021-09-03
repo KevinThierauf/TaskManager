@@ -129,8 +129,8 @@ int main() {
     FutureTaskResult genericFifthTaskFuture = fifthTaskFuture;
 
     // the return value can be obtained through a void pointer
-    // if the Task is a void function, the return value will be a dummy value to
-    // stay consistent with the rest of the api. The dummy value itself is unspecified, and of an unspecified type
+    // if the Task is a void function, the return value will be a dummy value to stay consistent with the rest of the api. 
+    // The dummy value itself is unspecified, and of an unspecified type
     if (const void *value = genericFifthTaskFuture.getReturnValue()) {
         out << "Task 5 finished successfully" << std::endl;
     }
@@ -144,7 +144,7 @@ int main() {
     } else assert(false);
 
     // close queue -- lets workers finish once all tasks previously added are finished
-    // any additional tasks added will be cancelled
+    // any tasks added to the queue after the queue has closed will be cancelled. Previously scheduled tasks will still be executed.
     queue.close();
     worker::sync(queue);
     queue.getScheduler()->wait();
